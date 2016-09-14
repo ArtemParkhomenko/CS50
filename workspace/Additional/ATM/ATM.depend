@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1473776377 source:/home/lordkered/Projects/ATM/main.c
+	<stdio.h>
+	<stdlib.h>
+
+1473856820 source:/home/lordkered/GitHub/CS50-master/workspace/Additional/ATM/main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<locale.h>
+	<time.h>
+
