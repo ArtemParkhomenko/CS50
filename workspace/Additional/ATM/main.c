@@ -4,115 +4,108 @@
 #include <locale.h>
 #include <time.h>
 
-const int ARRAY_SIZE = 11;
+const int MAX_ARRAY_LENGHT = 11;
 const int ADMIN_PASSWORD = 1111;
 
 int main()
 {
     setlocale(LC_ALL,"");
-    int array[ARRAY_SIZE];
-    arrayInitialization(array);
-    execution(array);
+    printf("Здравствуйте!!\n");
+    execute();
     return 0;
 }
 
-void arrayInitialization(int* array)
+void execute ()
 {
-    array[0]=20000;
-    srand (time(NULL));
-    for (int i = 1; i<=10; i++)
+    int array[MAX_ARRAY_LENGHT];
+    int index = -1;
+    int password = 0;
+    arrayRandom(array);
+    printf("Введите ячейку: ");
+    scanf("%d",&index);
+    if (index==0 && validationCheck(index))
+    {
+        printf("\nВведите пароль: ");
+        scanf("%d", &password);
+        if (password==ADMIN_PASSWORD)
+            selectOperation(array,index);
+        else
+        {
+            printf("\nПароль не верный. Операции будут завершенны.");
+        }
+    }
+    else if (validationCheck(index)==true)
+        selectOperation(array,index);
+    else
+    {
+        printf("\nНе верный номер ячейки. Дальнейшие операции будут завершенны.");
+    }
+}
+
+
+void arrayRandom(int* array)
+{
+    array[0] = 20000;
+    srand(time(NULL));
+    for(int i = 1; i<MAX_ARRAY_LENGHT; i++)
     {
         array[i] = 100 + rand() % 1000;
     }
-     for (int i = 0; i<11; i++)
-    {
-        printf("i[%d] = ",i);
-        printf("%d \n",array[i]);
-    }
 }
 
-void execution(int* array)
+int validationCheck(int index)
 {
-    int index;
-    int password;
-    printf("Введите номер ячейки от 1 до 10 : ");
-    scanf("%d", &index);
-    while(true)
-    {
-        if (index>0 && index<=10)
-        {
-            selectionOfOperations(array,index);
-            break;
-        }
-        else if(index == 0)
-        {
-            printf("Введите пароль: ");
-            scanf("%d", &password);
-            if (password==ADMIN_PASSWORD)
-            {
-                selectionOfOperations(array,index);
-                break;
-            }
-            else
-            {
-                printf("Не верный пароль. Операция завершенна!");
-                break;
-            }
-        }
-        else
-        {
-            printf("Введен не верный номер ячейки. Повторите еще раз: ");
-            scanf("%d", &index);
-            continue;
-        }
-    }
+    if(index>=0 && index<MAX_ARRAY_LENGHT)
+        return true;
+    else
+        return false;
 }
-
-void selectionOfOperations(int* array,int index)
+void selectOperation(int* array, int index)
 {
-    printf("\nЗдравствуйте! Ваша ячейка №%d готова для дальнейших операций \n",index);
+    printf("\nВаша ячейка №%d готова для дальнейших операций \n",index);
     printOperation();
-    char c;
+    int number = 0;
     int soum = 0;
-    scanf("%s", &c);
+    int temp = 0;
+    scanf("%d",&number);
     while(true)
     {
-        if(c=='1')
+        if(number==1)
         {
-            printf("Ваш баланс = %d\n",array[index]);
+            printf("Ваш баланс = %d\n", array[index]);
             printOperation();
-            scanf("%i", &c);
+            scanf("%d", &number);
             continue;
         }
-        else if (c=='2')
+        else if (number==2)
         {
             printf("Введите суму которую хотите снять: ");
-            scanf("%d",&soum);
-            if (soum<array[index])
+            scanf("%d",&soum); // Сделать проверку на ввод сумы не меньше>0 и меньше <50000
+            if (soum<=array[index])
             {
-                printf("Операция успешно выполнена, Вы, сняли %i \n", soum);
+                printf("\nОперация успешно выполнена, Вы, сняли %d кредитов.\n",soum);
+                temp=array[index]-soum;
+                printf("Остаток на счету = %d\n", temp);
+                break;
             }
             else
             {
-                printf("\nНе достаточна на счету!\n");
-
+                printf("Не достаточно на счету!", temp);
+                break;
             }
-            printOperation();
-            scanf("%s", &c);
-            continue;
         }
-        else if (c=='3')
+        else if (number==3)
         {
             break;
         }
         else
         {
-            printf("\nНе корректный ввод. Повторите еще раз: ");
-            scanf("%s", &c);
+            printf("\nНекорректный выбор операции. Повторити попытку еще раз: ");
+            scanf("%d",&number);
             continue;
         }
-
     }
+
 
 }
 void printOperation()
