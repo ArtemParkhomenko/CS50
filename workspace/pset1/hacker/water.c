@@ -1,12 +1,23 @@
 #include <cs50.h>
 #include <stdio.h>
 
+//prototype
+void bottles (int bathingTime);
+void execution();
+
+int main(void)
+{
+    execution();
+    return 0;
+}
+
 void bottles (int bathingTime)
 {
     const int BOTTLEINMINUTES = 12; // 12 bottles (0.5) of water flows out of the shower in a minute.
     printf("bottles: %d", bathingTime * BOTTLEINMINUTES);// Output.
     
 }
+
 void execution() //The process of building a program.
 {
     printf("minutes: ");
@@ -26,10 +37,4 @@ void execution() //The process of building a program.
             continue; // Checks loop again.
         } 
     }
-}
-
-int main(void)
-{
-    execution();
-    return 0;
 }

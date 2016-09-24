@@ -2,25 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 
-void greedy(float money) // The method/funcition
-{
-    int change = round(money * 100);;                 // convert money to change
-    int count = 0;
-    
-    count += change/25;
-    change = change%25;
-    
-    count += change/10;
-    change = change%10;
-    
-    count += change/5;
-    change = change%5;
-    
-    count += change;                // steps for calculating 
-    printf("%d\n",count);           // output
-
-}
-
+//prototype
+void greedy(float money);
 
 int main(void)
 {
@@ -41,4 +24,23 @@ int main(void)
             continue; // Checks loop again
         }
     }
+}
+
+void greedy(float money) // The method/funcition
+{
+    int change = round(money * 100);;                 // convert money to change
+    int count = 0;
+    
+    count += change/25;
+    change = change%25;
+    
+    count += change/10;
+    change = change%10;
+    
+    count += change/5;
+    change = change%5;
+    
+    count += change;                // steps for calculating 
+    printf("%d\n",count);           // output
+
 }

@@ -5,6 +5,7 @@
 void draw(int height);
 void execution();
 
+
 int main(void)
 {
     execution();
@@ -17,7 +18,10 @@ void draw(int height) // The method/funcition describes a drawing of the pyramid
     {
         for(int j = 1; j <= height - i; j++)
             printf(" ");
-        for(int j = 1; j <= i + 1; j++)
+        for(int j = 1; j <= i; j++)
+            printf("#");
+        printf("  ");
+        for(int j = 1; j <= i; j++)
             printf("#");
         printf("\n");
     }

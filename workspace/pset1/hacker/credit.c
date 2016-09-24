@@ -2,8 +2,36 @@
 #include <stdio.h>
 #include <string.h>
 
+//prototype
+int getSum(int digit);
+bool checksum(char *number);
 
 const int CARD_MAX_LENGTH = 16;
+
+int main(void)
+{
+    printf("Number: ");
+    long long cardNum = GetLongLong();
+ 
+    // Convert the cardNum to a string of digits
+    char cardStr[CARD_MAX_LENGTH];
+    sprintf(cardStr, "%lld", cardNum);
+    int lenght = strlen(cardStr);
+    
+    // Now check for card number types
+    if (lenght < 13 || lenght > 16 || lenght == 14)
+        printf("INVALID\n");
+    else if (cardStr[0] == '4' && checksum(cardStr))
+        printf("VISA\n"); 
+    else if (cardStr[0] == '3' && (cardStr[1] == '4' || cardStr[1] == '7') && checksum(cardStr))
+        printf("AMEX\n");
+    else if (cardStr[0] == '5' && (cardStr[1] >= '1' || cardStr[1] <= '5') && checksum(cardStr))
+        printf("MASTERCARD\n");
+    else
+        printf("INVALID\n");
+    
+    return 0;
+}
 
 int getSum(int digit)
 {
@@ -31,29 +59,4 @@ bool checksum(char *number)
         return true;
     else
         return false;
-}
-
-int main(void)
-{
-    printf("Number: ");
-    long long cardNum = GetLongLong();
- 
-    // Convert the cardNum to a string of digits
-    char cardStr[CARD_MAX_LENGTH];
-    sprintf(cardStr, "%lld", cardNum);
-    int lenght = strlen(cardStr);
-    
-    // Now check for card number types
-    if (lenght < 13 || lenght > 16 || lenght == 14)
-        printf("INVALID\n");
-    else if (cardStr[0] == '4' && checksum(cardStr))
-        printf("VISA\n"); 
-    else if (cardStr[0] == '3' && (cardStr[1] == '4' || cardStr[1] == '7') && checksum(cardStr))
-        printf("AMEX\n");
-    else if (cardStr[0] == '5' && (cardStr[1] >= '1' || cardStr[1] <= '5') && checksum(cardStr))
-        printf("MASTERCARD\n");
-    else
-        printf("INVALID\n");
-    
-    return 0;
 }
