@@ -29,8 +29,10 @@ int main(int argc, string argv[])
 
 void execution (int key)
 {
+    printf("plaintext: ");
     string text = get_string();
     int length = strlen(text);
+    printf("ciphertext: ");
     for(int i = 0; i < length; i++)
     {
         if(isalpha(text[i])) // "isalpha" - checking on the alphabet.  https://reference.cs50.net/ctype/isalpha

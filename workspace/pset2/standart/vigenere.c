@@ -46,10 +46,10 @@ void execution (string keyWord)
     {
         keyCodes[i] = toupper(keyWord[i]) - 'A'; // The letters in the keyword array, will be converted to numbers
     }
-
+    printf("plaintext: ");
     string text = GetString();
     int textLength = strlen(text);
-    
+    printf("ciphertext: ");
     for (int i = 0; i < textLength; i++)
     {
         if(!isalpha(text[i]))
