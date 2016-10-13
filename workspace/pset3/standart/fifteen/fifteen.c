@@ -44,7 +44,6 @@ void draw(void);
 bool move(int tile);
 bool won(void);
 //my prototypes
-bool searchTile(int tile);
 void searchEmpy();
 
 
@@ -218,7 +217,6 @@ void draw(void)
 bool move(int tile)
 {
     // TODO
-    searchTile(tile);
     searchEmpy();
     if((tileY == empyY && abs(tileX-empyX)==1) || (abs(tileY - empyY) == 1 && tileX==empyX))
     {
@@ -248,44 +246,30 @@ bool won(void)
 					return false;
 				}
 			}
-			else
+			else if(board[i][j] != (d*i + j + 1))
 			{
-				if(board[i][j] != (d*i + j + 1))
-				{	
-					return false;
-				}
+				return false;
 			}
 		}
 	}		
     return true;
 }
 
-bool searchTile(int tile)
+void searchEmpy(int tile)
 {
     for (int i = 0; i < d; i++)
     {
         for (int j = 0; j < d; j++)
         {
-            if (board[i][j] == tile)
-            {
-                tileY = i;
-                tileX = j;
-                return true;
-            }
-        }
-    }
-    return false;
-}
-void searchEmpy()
-{
-    for (int i = 0; i < d; i++)
-    {
-        for (int j = 0; j < d; j++)
-        {
-            if  (board[i][j] == 0)
+            if(board[i][j] == 0)
             {
                 empyY = i;
                 empyX = j;
+            }
+            if(board[i][j] == tile)
+            {
+                tileY = i;
+                tileX = j;
             }
         }
     }
