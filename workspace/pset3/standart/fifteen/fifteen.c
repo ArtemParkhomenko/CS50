@@ -32,10 +32,6 @@ int board[DIM_MAX][DIM_MAX];
 // dimensions
 int d;
 
-// my variables
-int tileX = 0, tileY = 0;
-int empyX = 0, empyY = 0;
-
 // prototypes
 void clear(void);
 void greet(void);
@@ -44,8 +40,7 @@ void draw(void);
 bool move(int tile);
 bool won(void);
 //my prototypes
-void searchEmpy();
-
+void searchEmpy(int tile, int* tileX, int* tileY, int* empyX, int* empyY);
 
 int main(int argc, string argv[])
 {
@@ -217,7 +212,9 @@ void draw(void)
 bool move(int tile)
 {
     // TODO
-    searchEmpy();
+    int tileX = 0, tileY = 0;
+    int empyX = 0, empyY = 0;
+    searchEmpy(tile,&tileX,&tileY,&empyX,&empyY);
     if((tileY == empyY && abs(tileX-empyX)==1) || (abs(tileY - empyY) == 1 && tileX==empyX))
     {
         board[empyY][empyX] = board[tileY][tileX];
@@ -255,7 +252,7 @@ bool won(void)
     return true;
 }
 
-void searchEmpy(int tile)
+void searchEmpy(int tile, int* tileX, int* tileY, int* empyX, int* empyY)
 {
     for (int i = 0; i < d; i++)
     {
@@ -263,13 +260,13 @@ void searchEmpy(int tile)
         {
             if(board[i][j] == 0)
             {
-                empyY = i;
-                empyX = j;
+                *empyY = i;
+                *empyX = j;
             }
             if(board[i][j] == tile)
             {
-                tileY = i;
-                tileX = j;
+                *tileY = i;
+                *tileX = j;
             }
         }
     }
