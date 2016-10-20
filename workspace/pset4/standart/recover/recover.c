@@ -16,10 +16,9 @@ int main(void)
     char* filename = malloc(sizeof(char) * 8);
     int count = 0;
     bool fileOpened = false;
-    
     if (file == NULL)
     {
-        printf("Could't open card.raw\n");
+        fprintf(stderr,"Could't open card.raw\n");
         return 1;
     }
     if (buffer == NULL)
@@ -32,7 +31,7 @@ int main(void)
     {   
         if(isJPEG(buffer))
         {
-            sprintf(filename, "%02d.jpg", count);
+            sprintf(filename, "%03d.jpg", count);
             count++;
             
             if(fileOpened)
