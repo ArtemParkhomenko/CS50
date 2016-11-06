@@ -26,7 +26,7 @@
             <tr>
                 <td>{{ out.symbol }}</td>
                 <td>{{ out.name }}</td></td>
-                <td>{{ out.shares }}</td>
+                <td>{{ out['SUM(shares)']}}</td>
                 <td>{{ out.price | usd }}</td>
                 <td>{{ out.total | usd }}</td>
             </tr>

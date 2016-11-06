@@ -20,26 +20,15 @@ def addTransaction(id, symbol, name, shares, price, cash):
         
 def parseTransactions(id):
     
-    # Get rows transactions from data base
-    rows = db.execute('SELECT symbol, name, shares FROM transactions WHERE user_id = :id', id=id)
-    
     # Create list
-    userShares = []
-    
-    # Go by rows, and add data to our list
-    for row in rows:
-        for temp in userShares:
-            if temp['symbol'] == row['symbol']:
-                temp['shares'] += row['shares']
-                break
-        else:
-            userShares.append({'symbol': row['symbol'], 'name': row['name'], 'shares': row['shares']})
+    sqlCommand = "SELECT symbol, name, SUM(shares) FROM transactions WHERE user_id=:id GROUP BY name HAVING SUM(shares)>0"
+    userShares = db.execute(sqlCommand, id = id)
     
     # Write total in userShares
     for temp in userShares:
         data = lookup(temp['symbol'])
         temp['price'] = data['price']
-        temp['total'] = temp['price'] * temp['shares']
+        temp['total'] = temp['price'] * temp['SUM(shares)']
         
     return list(filter(lambda x: x['total'], userShares))
 

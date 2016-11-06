@@ -32,10 +32,10 @@ Session(app)
 @login_required
 def index():
     
-    id = session['user_id']
+    id = session["user_id"]
     
     cash = getCash(id) # Look in myHelpers
-    
+
     userShares = parseTransactions(id) # Look in myHelpers
     total = getTotal(cash, userShares) # Look in myHelpers
     
@@ -260,7 +260,7 @@ def addmoney():
         
         # password check    
         if not int(request.form.get("secret-key")) == 85:
-            return render_template("addmoney.html", error = "Invalid secret-key")
+            return render_template("addmoney.html", error = "Invalid secret-key (0101 0101)")
         
         rows = getUser(id)
         cash = rows[0]['cash']
