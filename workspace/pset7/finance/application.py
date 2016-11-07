@@ -184,7 +184,11 @@ def sell():
             return render_template("sell.html", error = "Need provide symbols")
         if lookup(request.form.get("symbol")) == None:
             return render_template("sell.html", error = "Invalid symbols")
-        if not db.execute("SELECT * FROM transactions WHERE symbol = :symbol", symbol=request.form.get("symbol").upper()):
+            
+        id = session["user_id"]
+        
+        if not db.execute("SELECT symbol FROM transactions WHERE symbol = :symbol AND user_id = :id",
+                        symbol=request.form.get("symbol").upper(), id = id):
             return render_template("sell.html", error = "You didn't buy this symbol")
         
         if not request.form.get("shares"):
@@ -192,7 +196,6 @@ def sell():
         if request.form.get("shares").isalpha() or int(request.form.get("shares")) < 1:
             return render_template("sell.html", error = "Invalid shares")
         
-        id = session["user_id"]
         cash = getCash(id) # Look in myHelpers
 
         symbols = lookup(request.form.get("symbol"))
@@ -206,9 +209,6 @@ def sell():
             return render_template("sell.html", error = "Too many shares")
 
         transactions = cash + price * shares
-        
-        if transactions < 0:
-            return render_template("sell.html", error = "Ohhh, you haven't enough money")
         
         addTransaction(id, symbol, name, -shares, price, transactions) # Look in myHelpers 
         
