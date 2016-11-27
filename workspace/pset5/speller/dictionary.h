@@ -14,7 +14,7 @@
 
 typedef struct Node
 {
-    bool word;
+    bool isWord;
     struct Node *children[CHARACTERS];
 } Node;
 

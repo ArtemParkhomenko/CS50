@@ -29,7 +29,7 @@ bool check(const char* word)
         cursor = cursor->children[index];
     }
     
-    return (cursor->word) ? true : false;
+    return (cursor->isWord) ? true : false;
 }
 
 /**
@@ -51,7 +51,7 @@ bool load(const char* dictionary)
     {
         root->children[i] = NULL;
     }
-    root->word = false;
+    root->isWord = false;
     
     Node *cursor = root;
     
@@ -59,7 +59,7 @@ bool load(const char* dictionary)
     {
         if (c == '\n')
         {
-            cursor->word = true;        
+            cursor->isWord = true;        
             cursor = root;
             dictionarySize++;
         }
@@ -74,7 +74,7 @@ bool load(const char* dictionary)
                 {
                     cursor->children[index]->children[i] = NULL;
                 }
-                cursor->children[index]->word = false;
+                cursor->children[index]->isWord = false;
             }
             cursor = cursor->children[index];
         }
